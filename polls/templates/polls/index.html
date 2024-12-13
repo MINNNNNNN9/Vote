@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}問卷列表 - 問卷調查系統{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="h2"><i class="fas fa-clipboard-list me-2"></i>問卷列表</h1>
+            {% if user.is_staff %}
+            <a href="{% url 'admin:polls_question_add' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>新增問卷
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if latest_question_list %}
+    <div class="row">
+        {% for question in latest_question_list %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ question.question_text }}</h5>
+                        <p class="card-text text-muted">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            發布時間：{{ question.pub_date|date:"Y-m-d H:i" }}
+                        </p>
+                        <p class="card-text">
+                            <span class="badge bg-primary me-2">
+                                {% if question.type == 'single' %}
+                                    <i class="fas fa-dot-circle me-1"></i>單選題
+                                {% else %}
+                                    <i class="fas fa-check-square me-1"></i>多選題
+                                {% endif %}
+                            </span>
+                            <span class="badge bg-info">
+                                <i class="fas fa-list-ol me-1"></i>
+                                {{ question.choice_set.count }} 個選項
+                            </span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'polls:detail' question.id %}" class="btn btn-outline-primary">
+                                <i class="fas fa-vote-yea me-2"></i>參與投票
+                            </a>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'polls:results' question.id %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-chart-bar me-2"></i>查看結果
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{% else %}
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle me-2"></i>目前還沒有任何問卷。
+        {% if user.is_staff %}
+            <a href="{% url 'admin:polls_question_add' %}" class="alert-link">點擊這裡</a>創建新問卷。
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

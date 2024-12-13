@@ -1,0 +1,200 @@
+#header {
+ position: relative;
+}
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 縮放圖片以填滿容器 */
+}
+
+body {
+  background-image: url("images/02.jpg"); /* 指定背景圖片 */
+  background-color: #fff;
+  font-family: serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 0 20px;
+  max-width: 1000px;
+  display: flex;
+  min-height: 100vh;
+}
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 0 0 1em 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  width: 550px;
+  height: 100px;
+  margin-top: 20px;
+}
+p {
+  margin: 0 0 1em 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 1em 0 0;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+h2 {
+  font-size: 1.5em;
+  margin: 1em 0 0.5em 0;
+}
+.choice {
+  margin: 0 0 1em 0;
+}
+
+.choice::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 1em;
+  border-top: 1px solid #ddd;
+
+  border-color: #ccc;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.choice:last-of-type::after {
+  border-bottom: 1px solid #ccc;
+  border-width: 2px;
+  border-style: solid;
+}
+
+label {
+  display: block;
+  margin: 0;
+}
+
+input[type="radio"] {
+  margin-right: 0.5em;
+}
+
+input[type="submit"] {
+  margin: 1em 0 0 0;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* 下拉式選單樣式 */
+
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.dropdown-menu option {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.dropdown-menu option:hover {
+  text-overflow: inherit;
+}
+
+/* 可選樣式：自定義特定下拉式選單樣式 */
+
+.my-dropdown {
+  max-height: 200px;
+  overflow-y: scroll;
+  padding: 0; /* Remove any default padding */
+  margin: 0; /* Remove any default margin */
+  }
+
+  /*修改長寬*/
+select {
+    width: 200px;
+    height: 30px;  /* Adjust height as needed */
+  }
+.container {
+    background-color: rgba(255, 255, 255, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 將容器內元素水平靠左對齊 */
+  justify-content: center;
+  position: relative;
+  left: 21%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container h1 {
+  text-align: center; /* 保持標題置中對齊 */
+  margin: 0 auto; /* 使用自動外邊距使標題水平置中 */
+  width: fit-content; /* 使用自適應寬度使標題僅包裹其內容 */
+  box-shadow: none;
+  border: none;
+  height: auto;
+  padding: 0;
+}
+.container h2 {
+  border: 1px dashed #afb4db;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.container h1,
+.container h2,
+.container p,
+.container ul {
+  text-align: left;
+}
+
+.container ul {
+  list-style-type: none;
+  padding: 0;
+  column-count: 2; /* 使用列布局將選項分為兩列 */
+  column-gap: 20px; /* 設置列之間的間距 */
+}
+
+.container ul li {
+  display: block; /* 將每個選項設置為區塊元素 */
+  margin-bottom: 10px;
+}
+
+.container input[type="checkbox"] {
+  vertical-align: middle; /* 垂直對齊中線 */
+  margin-right: 5px; /* 調整複選框和文本之間的右邊距 */
+}
+.container input[type="submit"] {
+  margin-top: 20px;
+}
+.container .question-container {
+  border: 1px dashed #ccc !important;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.question li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: inherit; /* 繼承父元素的文本對齊方式 */
+}
+
+.question li input {
+  margin-right: 5px;
+}

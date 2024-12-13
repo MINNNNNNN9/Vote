@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}投票結果 - {{ question.question_text }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>投票結果
+                </h2>
+            </div>
+            <div class="card-body">
+                <h3 class="h4 mb-4">{{ question.question_text }}</h3>
+
+                <div class="results-container">
+                    {% for choice in choices %}
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>{{ choice.choice_text }}</span>
+                                <span class="text-primary">
+                                    {{ choice.votes }} 票 ({{ choice.percentage|floatformat:1 }}%)
+                                </span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ choice.percentage }}%" 
+                                     aria-valuenow="{{ choice.percentage }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted">
+                        <i class="fas fa-users me-2"></i>總投票數：{{ total_votes }} 票
+                    </p>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary">
+                        <i class="fas fa-vote-yea me-2"></i>再次投票
+                    </a>
+                    <a href="{% url 'polls:index' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>返回列表
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="d-flex justify-content-between align-items-center">
+                    <small>
+                        <i class="fas fa-calendar-alt me-1"></i>
+                        發布時間：{{ question.pub_date|date:"Y-m-d H:i" }}
+                    </small>
+                    <span class="badge bg-primary">
+                        {% if question.type == 'single' %}
+                            <i class="fas fa-dot-circle me-1"></i>單選題
+                        {% else %}
+                            <i class="fas fa-check-square me-1"></i>多選題
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
