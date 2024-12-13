@@ -21,7 +21,7 @@
 
 1. 克隆項目：
 ```bash
-git clone [your-repository-url]
+git clone git@github.com:MINNNNNNN9/Vote.git
 cd Questionnaire
 ```
 
